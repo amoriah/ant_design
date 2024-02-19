@@ -6,13 +6,10 @@ export const layoutStyle = {
 export const headerStyle: React.CSSProperties = {
   color: "#111",
   position: "fixed",
-  // position: "sticky",
   top: 10,
-  left: 10,
-  right: 10,
-  // bottom: '10px',
+  left: 16,
+  right: 16,
   zIndex: 1,
-  // margin: '15px',
   backgroundColor: "#fff",
   border: "1px solid #f4d02e",
   borderRadius: "30px",
@@ -31,25 +28,25 @@ export const siderStyle: React.CSSProperties = {
   paddingTop: "80px",
   left: 15,
   top: 15,
-  bottom: 0,
-  // borderColor: "#f4d02e",
-  color: "#111",
   backgroundColor: "#fff",
 };
 
 export const contentStyle: React.CSSProperties = {
   textAlign: "center",
-
-  height: "calc(100vh - 64px)",
-  color: "#111",
+  width: "100%",
+  height: "100vh",
+  overflow: "hidden",
   backgroundColor: "#fff",
 };
 
 export const contentFlexStyle: React.CSSProperties = {
+  width: "100%",
+  height: "calc(100vh - 20px)",
+  overflow: "auto",
   display: "flex",
   flexDirection: "column",
   alignItems: "end",
-  marginTop: "79px",
+  // marginTop: "96px",
 };
 
 export const hotelCardStyle: React.CSSProperties = {
@@ -58,8 +55,11 @@ export const hotelCardStyle: React.CSSProperties = {
   margin: "1.2em",
   borderColor: "#f4d02e",
   display: "flex",
-  flexDirection: 'row',
-  // boxSizing: 'border-box',
+  flexDirection: "row",
+};
 
-  //-320 left
+export const imgStyle: React.CSSProperties = {
+  borderRadius: "15%",
+  margin: "auto",
+  height: "260px",
 };

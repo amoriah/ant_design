@@ -3,8 +3,10 @@ import { Dropdown, Flex } from "antd";
 import { Header } from "antd/es/layout/layout";
 import type { MenuProps } from "antd";
 import { headerFlex, headerStyle } from "../pages/HotelsStyle";
+import { useNavigate } from "react-router";
 
 export const AppHeader = () => {
+  const navigate = useNavigate();
   const menuItems: MenuProps["items"] = [
     {
       label: "Настройки",
@@ -23,11 +25,15 @@ export const AppHeader = () => {
     if (e.key === "1") console.log("settings");
   };
 
+  const goSearchHotels = () => {
+    navigate('/hotels');
+  }
+
   return (
     <div>
       <Header style={headerStyle}>
         <Flex style={headerFlex}>
-          <div style={{ fontSize: "24px" }}>Поиск отелей</div>
+          <div style={{ fontSize: "24px", cursor: 'pointer' }} onClick={goSearchHotels}>Поиск отелей</div>
           <Dropdown
             menu={{ items: menuItems, onClick: handleMenuClick }}
             trigger={["click"]}

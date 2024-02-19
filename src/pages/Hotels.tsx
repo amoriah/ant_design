@@ -1,31 +1,40 @@
+import { AppLayout } from "../components/AppLayout";
 import { Content } from "antd/es/layout/layout";
-import { Flex, Layout } from "antd";
-import { contentFlexStyle, contentStyle, layoutStyle } from "./HotelsStyle";
-import { AppHeader } from "../components/AppHeader";
+import { Flex } from "antd";
+import { contentFlexStyle, contentStyle } from "./HotelsStyle";
 import { FilterBar } from "../components/FilterBar";
 import { HotelCard } from "../components/HotelCard";
 import { hotels } from "../data/hotelsData";
+import Search from "antd/es/input/Search";
+import type { SearchProps } from "antd/es/input/Search";
 
-export const Hotels = () => {
-
+const Component = () => {
   const hotelCards = hotels.map((hotel, i) => {
-    return <HotelCard {...hotel}/>
-  })
+    return <HotelCard {...hotel} />;
+  });
+
+  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
+    console.log(info?.source, value);
 
   return (
-    <Flex gap="middle" wrap="wrap">
-      <Layout style={layoutStyle}>
-        <AppHeader />
-        <Layout>
-          <FilterBar />
-          <Content style={contentStyle}>
-            <Flex style={contentFlexStyle}>
-              {hotelCards}
-              {/* <HotelCard /> */}
-            </Flex>
-          </Content>
-        </Layout>
-      </Layout>
-    </Flex>
+    <>
+      <FilterBar />
+      <Content style={contentStyle}>
+        <Flex style={contentFlexStyle}>
+          <Search
+            placeholder="Address"
+            allowClear
+            onSearch={onSearch}
+            style={{ width: "70%", marginRight: "15px" }}
+            size="large"
+          />
+          {hotelCards}
+        </Flex>
+      </Content>
+    </>
   );
+};
+
+export const Hotels = () => {
+  return <AppLayout content={<Component />} />;
 };
