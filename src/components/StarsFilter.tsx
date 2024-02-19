@@ -1,9 +1,9 @@
 import { Card, Radio, Space } from "antd";
 import { useState } from "react";
-import type {  RadioChangeEvent, } from "antd";
+import type { RadioChangeEvent } from "antd";
 import { StarFilled } from "@ant-design/icons";
 
-export const StarsFilter= () => {
+export const StarsFilter = () => {
   const [value, setValue] = useState(1);
   const onChangeRadio = (e: RadioChangeEvent) => {
     console.log("radio checked", e.target.value);
@@ -16,7 +16,7 @@ export const StarsFilter= () => {
     function starsFill(count: number) {
       let arr: React.ReactNode[] = [];
       for (let i = 0; i < count; i++) {
-        arr.push(<StarFilled />);
+        arr.push(<StarFilled style={{ color: "#dbd533" }} />);
       }
       return arr;
     }
@@ -27,7 +27,14 @@ export const StarsFilter= () => {
     return element;
   };
   return (
-    <Card title="Звёзды" style={{ display: "flex", flexDirection: "column" }}>
+    <Card
+      title="Звёзды"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        borderColor: "#f4d02e",
+      }}
+    >
       <Radio.Group
         onChange={onChangeRadio}
         value={value}

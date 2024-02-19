@@ -1,18 +1,26 @@
 export const layoutStyle = {
-  // overflow: "hidden",
   width: "calc(50% - 8px)",
-  // maxWidth: "calc(50% - 8px)",
+  backgroundColor: "#fff",
 };
 
 export const headerStyle: React.CSSProperties = {
-  // textAlign: "center",
-  color: "#fff",
-  position: "sticky",
-  top: 0,
+  color: "#111",
+  position: "fixed",
+  // position: "sticky",
+  top: 10,
+  left: 10,
+  right: 10,
+  // bottom: '10px',
   zIndex: 1,
-  // width: "100%",
-  // display: "flex",
-  backgroundColor: "#f4d02e",
+  // margin: '15px',
+  backgroundColor: "#fff",
+  border: "1px solid #f4d02e",
+  borderRadius: "30px",
+};
+
+export const headerFlex: React.CSSProperties = {
+  justifyContent: "space-between",
+  alignItems: "center",
 };
 
 export const siderStyle: React.CSSProperties = {
@@ -21,27 +29,37 @@ export const siderStyle: React.CSSProperties = {
   overflow: "auto",
   position: "fixed",
   paddingTop: "80px",
-  left: 0,
-  top: 0,
+  left: 15,
+  top: 15,
   bottom: 0,
-  // lineHeight: "100vh",
+  // borderColor: "#f4d02e",
   color: "#111",
   backgroundColor: "#fff",
 };
 
 export const contentStyle: React.CSSProperties = {
   textAlign: "center",
-  minHeight: 120,
+
   height: "calc(100vh - 64px)",
-  // lineHeight: "100vh",
   color: "#111",
   backgroundColor: "#fff",
 };
-// const onChange: CheckboxProps["onChange"] = (e) => {
-//   console.log(`checked = ${e.target.checked}`);
-// };
 
-export const headerFlex: React.CSSProperties = {
-  justifyContent: "space-between",
-  alignItems: "center",
+export const contentFlexStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "end",
+  marginTop: "79px",
+};
+
+export const hotelCardStyle: React.CSSProperties = {
+  width: "70%",
+  height: "230px",
+  margin: "1.2em",
+  borderColor: "#f4d02e",
+  display: "flex",
+  flexDirection: 'row',
+  // boxSizing: 'border-box',
+
+  //-320 left
 };

@@ -1,4 +1,4 @@
-import { IHotelData } from "./types";
+import { IHotelData } from "../types.ts/types";
 
 export const hotels: IHotelData[] = [
   {

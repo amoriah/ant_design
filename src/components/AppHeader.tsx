@@ -7,11 +7,11 @@ import { headerFlex, headerStyle } from "../pages/HotelsStyle";
 export const AppHeader = () => {
   const menuItems: MenuProps["items"] = [
     {
-      label: "настройки",
+      label: "Настройки",
       key: "1",
     },
     {
-      label: "выйти",
+      label: "Выйти",
       key: "2",
     },
   ];
