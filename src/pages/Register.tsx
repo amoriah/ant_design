@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { Button, Form, Input } from "antd";
+import { Button, Card, Form, Input } from "antd";
+import { Content } from "antd/es/layout/layout";
 
 const formItemLayout = {
   labelCol: {
@@ -27,74 +28,83 @@ export const Register: React.FC = () => {
   };
 
   return (
-    <Form
-      {...formItemLayout}
-      // form={form}
-      name="register"
-      onFinish={onFinish}
-      initialValues={
-        {
-          // prefix: "86",
-        }
-      }
-      style={{ maxWidth: 600 }}
-      scrollToFirstError
+    <Content
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
-      <Form.Item
-        name="Username"
-        label="username"
-        rules={[
-          {
-            required: true,
-            message: "Please input your username!",
-            whitespace: true,
-          },
-        ]}
+      <Card
+        style={{
+          marginTop: "3em",
+          width: "400px",
+        }}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: "Please input your password!",
-          },
-        ]}
-        hasFeedback
-      >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={["password"]}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: "Please confirm your password!",
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue("password") === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(
-                new Error("The new password that you entered do not match!")
-              );
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form
+          {...formItemLayout}
+          name="register"
+          onFinish={onFinish}
+          style={{ maxWidth: 600 }}
+          scrollToFirstError
+        >
+          <Form.Item
+            name="Username"
+            label="username"
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item
+            name="confirm"
+            label="Confirm"
+            dependencies={["password"]}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Please confirm your password!",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("The new password that you entered do not match!")
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit">
+              Register
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
+    </Content>
   );
 };

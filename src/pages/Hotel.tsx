@@ -1,5 +1,6 @@
 import { Button, Card, Carousel, Col, Flex, Row, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
+import { useNavigate } from "react-router";
 import { AppLayout } from "../components/AppLayout";
 import { IHotelData } from "../types.ts/types";
 import { starsFill } from "../utils/utils";
@@ -12,10 +13,17 @@ interface HotelProps {
 }
 
 const Component: React.FC<HotelProps> = ({ hotel }) => {
+  const navigate = useNavigate();
+
   const onChange = (currentSlide: number) => {
     console.log(currentSlide);
   };
   const imgCount = [1, 2, 3];
+
+  const operReservationPage = () => {
+    navigate(`/hotels/${hotel.id}/reservation`);
+  };
+  
   return (
     <Content style={{ margin: "0 100px", background: "#fff" }}>
       <Row justify={"space-between"} align={"middle"}>
@@ -23,7 +31,11 @@ const Component: React.FC<HotelProps> = ({ hotel }) => {
           <Title level={2}>{hotel.hotelName}</Title>
           <Text italic>{hotel.address}</Text>
         </Flex>
-        <Button size="large" style={{ background: "#f4d02e" }}>
+        <Button
+          size="large"
+          style={{ background: "#f4d02e" }}
+          onClick={operReservationPage}
+        >
           Забронировать
         </Button>
       </Row>
@@ -42,6 +54,10 @@ const Component: React.FC<HotelProps> = ({ hotel }) => {
       </Carousel>
       <Col>
         <Title level={3}>Рейтинг {starsFill(hotel.stars)}</Title>
+        <Title
+          level={4}
+          style={{ margin: "20px 0" }}
+        >{`Цена: ${hotel.cost} рублей за ночь`}</Title>
         <Title level={4}>Описание</Title>
         <Text>{hotel.description}</Text>
       </Col>
@@ -61,15 +77,11 @@ const Component: React.FC<HotelProps> = ({ hotel }) => {
           })}
         </Row>
       </Col>
-      <Title
-        level={4}
-        style={{ marginTop: "20px" }}
-      >{`Цена: ${hotel.cost} рублей за ночь`}</Title>
     </Content>
   );
 };
 
 export const Hotel: React.FC<HotelProps> = ({ hotel }) => {
-  console.log("hotel", hotel);
+  // console.log("hotel", hotel);
   return <AppLayout content={<Component hotel={hotel} />} />;
 };

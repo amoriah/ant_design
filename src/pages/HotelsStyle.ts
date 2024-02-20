@@ -56,10 +56,28 @@ export const hotelCardStyle: React.CSSProperties = {
   borderColor: "#f4d02e",
   display: "flex",
   flexDirection: "row",
+  cursor: "pointer",
+  
 };
 
 export const imgStyle: React.CSSProperties = {
   borderRadius: "15%",
   margin: "auto",
   height: "260px",
+};
+
+export const accountFieldStyle: React.CSSProperties = {
+  marginTop: "30px",
+  display: "flex",
+  flexDirection: "column",
+};
+
+export const accountTextStyle: React.CSSProperties = {
+  fontSize: "16px",
+  border: "1px solid grey",
+  padding: "10px",
+  borderRadius: "6px",
+  width: "300px",
+  display: "flex",
+  justifyContent: "space-between",
 };

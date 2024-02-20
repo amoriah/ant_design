@@ -7,6 +7,11 @@ import { useNavigate } from "react-router";
 
 export const AppHeader = () => {
   const navigate = useNavigate();
+
+  const onSettings = () => {
+    navigate("/account");
+  };
+
   const menuItems: MenuProps["items"] = [
     {
       label: "Настройки",
@@ -22,18 +27,23 @@ export const AppHeader = () => {
     // message.info("Click on menu item.");
     // console.log("click", e);
     if (e.key === "2") console.log("logout");
-    if (e.key === "1") console.log("settings");
+    if (e.key === "1") onSettings();
   };
 
   const goSearchHotels = () => {
-    navigate('/hotels');
-  }
+    navigate("/hotels");
+  };
 
   return (
     <div>
       <Header style={headerStyle}>
         <Flex style={headerFlex}>
-          <div style={{ fontSize: "24px", cursor: 'pointer' }} onClick={goSearchHotels}>Поиск отелей</div>
+          <div
+            style={{ fontSize: "24px", cursor: "pointer" }}
+            onClick={goSearchHotels}
+          >
+            Поиск отелей
+          </div>
           <Dropdown
             menu={{ items: menuItems, onClick: handleMenuClick }}
             trigger={["click"]}

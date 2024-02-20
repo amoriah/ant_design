@@ -16,3 +16,20 @@
   background: #111;
   opacity: 0.3;
 }
+
+/* .search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.search-bar .ant-picker {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search-bar .ant-input-number {
+  width: 50%;
+  margin: 10px 0;
+} */
