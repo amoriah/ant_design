@@ -1,12 +1,13 @@
 import { Card, Col, Flex, Row, Typography } from "antd";
 import { useNavigate } from "react-router";
 import { hotelCardStyle } from "../pages/HotelsStyle";
+import { HotelModelType } from "../store/hotelsStore";
 import { IHotelData } from "../types.ts/types";
 import { starsFill } from "../utils/utils";
 
 const { Text, Title } = Typography;
 
-export const HotelCard: React.FC<IHotelData> = ({
+export const HotelCard: React.FC<HotelModelType> = ({
   id,
   hotelName,
   cost,
@@ -17,16 +18,17 @@ export const HotelCard: React.FC<IHotelData> = ({
 }) => {
   //вынести в общую функцию дубликат это
   const navigate = useNavigate();
-
   const openHotelPage = () => {
     navigate(`/hotels/${id}`);
   };
+
+  const image = photos[0];
 
   return (
     <Card hoverable style={hotelCardStyle} key={id} onClick={openHotelPage}>
       <Row wrap={false} style={{ width: "100%" }}>
         <Col style={{ width: "40%" }}>
-          <img src="./hotelsImage/1/1.jpeg" width="300px" height="180px" />
+          <img src={image} width="300px" height="180px" />
         </Col>
         <Col style={{ width: "40%" }}>
           <Flex vertical justify={"space-between"} style={{ height: "100%" }}>

@@ -1,10 +1,21 @@
 import { Button, Descriptions, Row } from "antd";
+import { useParams } from "react-router-dom";
 import { AppLayout } from "../components/AppLayout";
 
 import { CheckDetails } from "../components/CheckDetails";
 import { reservationItems } from "../data/reservDetails";
+import { useStore } from "../store/RootStore";
 
 const Component = () => {
+  const params = useParams();
+  const rootStore = useStore();
+  const { hotels } = rootStore;
+
+
+  const hotel = hotels.filter((hotel) => hotel.id === params.id);
+  const { id, hotelName, cost, address, reviews, stars, description, photos } =
+    hotel[0];
+
   const bookHotel = () => {
     console.log("забронировать");
   };

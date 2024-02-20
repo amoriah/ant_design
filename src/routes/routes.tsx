@@ -1,9 +1,6 @@
 import { Navigate, RouteObject } from "react-router-dom";
 
 import pages from "../pages/index";
-import { hotels } from "../data/hotelsData";
-
-
 
 const routes: RouteObject[] = [
   {
@@ -19,7 +16,7 @@ const routes: RouteObject[] = [
     //вытаскивать определенный отель из store
     path: "/hotels/:id",
     // element: <AuthProvider componentPage={<pages.MyVacancies />} />,
-    element: <pages.Hotel hotel={hotels[0]} />,
+    element: <pages.Hotel />,
   },
   {
     path: "/account",

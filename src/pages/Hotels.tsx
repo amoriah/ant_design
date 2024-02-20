@@ -4,14 +4,18 @@ import { Flex } from "antd";
 import { contentFlexStyle, contentStyle } from "./HotelsStyle";
 import { FilterBar } from "../components/FilterBar";
 import { HotelCard } from "../components/HotelCard";
-import { hotels } from "../data/hotelsData";
 import Search from "antd/es/input/Search";
 import type { SearchProps } from "antd/es/input/Search";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../store/RootStore";
 
-const Component = () => {
+const Component = observer(() => {
+  const rootStore = useStore();
+  const { hotels } = rootStore;
   const hotelCards = hotels.map((hotel, i) => {
     return <HotelCard {...hotel} />;
   });
+  // console.log("store", store);
 
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
@@ -33,8 +37,8 @@ const Component = () => {
       </Content>
     </>
   );
-};
-
-export const Hotels = () => {
+});
+//observer сколько нада?
+export const Hotels: React.FC = observer(() => {
   return <AppLayout content={<Component />} />;
-};
+});
