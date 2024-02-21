@@ -13,8 +13,10 @@ export const StarsFilter = () => {
   const starRender = () => {
     const stars = [1, 2, 3, 4, 5];
 
-    const element = stars.map((count) => (
-      <Radio value={count}>{starsFill(count)}</Radio>
+    const element = stars.map((count, i) => (
+      <Radio value={count} key={i}>
+        {starsFill(count)}
+      </Radio>
     ));
     return element;
   };

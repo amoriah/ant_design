@@ -18,6 +18,7 @@ export const headerStyle: React.CSSProperties = {
 export const headerFlex: React.CSSProperties = {
   justifyContent: "space-between",
   alignItems: "center",
+  height: "100%",
 };
 
 export const siderStyle: React.CSSProperties = {
@@ -46,7 +47,6 @@ export const contentFlexStyle: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "end",
-  // marginTop: "96px",
 };
 
 export const hotelCardStyle: React.CSSProperties = {

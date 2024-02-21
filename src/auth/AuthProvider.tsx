@@ -1,15 +1,11 @@
 import { Navigate } from "react-router";
 import { useStore } from "../store/RootStore";
 
-// interface ProdiderProp {
-//   page: React.FC;
-// }
-
 export const AuthProvider = ({ page }: any) => {
-  const { session } = useStore();
-  console.log('session', session)
+  const rootStore = useStore();
+  const { isAccess } = rootStore;
 
-  if (!session.isAuth) {
+  if (!isAccess) {
     return <Navigate to="/login" />;
   }
 

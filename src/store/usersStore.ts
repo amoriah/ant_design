@@ -16,7 +16,7 @@ export const UserModel = types.model("UserModel", {
   age: types.optional(types.string, ""),
   gender: types.optional(GenderType, Gender.Default),
   phone: types.optional(types.string, ""),
-  reservations: types.optional(types.array(types.number), []),
+  reservations: types.array(types.number),
 });
 
 export type UserModelType = Instance<typeof UserModel>;

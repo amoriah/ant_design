@@ -27,7 +27,10 @@ export const AppHeader = () => {
   ];
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
-    if (e.key === "2") logout();
+    if (e.key === "2") {
+      logout();
+      navigate("/login");
+    }
     if (e.key === "1") onSettings();
   };
 
@@ -39,17 +42,20 @@ export const AppHeader = () => {
     <div>
       <Header style={headerStyle}>
         <Flex style={headerFlex}>
-          <div
-            style={{ fontSize: "24px", cursor: "pointer" }}
+          <img
             onClick={goSearchHotels}
-          >
-            Поиск отелей
-          </div>
+            src="/logo.svg"
+            alt="logo"
+            width="40px"
+            height="30px"
+            style={{ cursor: "pointer" }}
+          />
+
           <Dropdown
             menu={{ items: menuItems, onClick: handleMenuClick }}
             trigger={["click"]}
           >
-            <UserOutlined style={{ fontSize: "24px" }} />
+            <UserOutlined style={{ fontSize: "26px" }} />
           </Dropdown>
         </Flex>
       </Header>

@@ -3,28 +3,14 @@ import { hotels as hotelsData } from "../data/hotelsData";
 import { HotelModel } from "./hotelsStore";
 import { ReservationModel, ReservationModelType } from "./reservationStore";
 import { SessionModel } from "./sessionStore";
-import { Gender, UserModel, UserModelType } from "./usersStore";
+import { UserModel } from "./usersStore";
 
-type sessionType = {
-  isAuth: boolean;
-  session: UserModelType | null;
-};
+const isAuthentication = localStorage.getItem("isAuthentication") === "true";
 
-const emptySession: sessionType = {
-  isAuth: false,
-  session: null,
-};
-
-const sessionStorage: sessionType = JSON.parse(
-  localStorage.getItem("session") || JSON.stringify(emptySession)
-);
-const isAuthentication = localStorage.getItem("isAuth") === "true";
-// console.log("sessionStorage", sessionStorage);
+const sessionStr = localStorage.getItem("session");
+const currentSession = sessionStr ? JSON.parse(sessionStr) : null;
 
 const usersStorage = JSON.parse(localStorage.getItem("users") || "[]");
-// const currentSession = sessionStorage || emptySession;
-
-// console.log("usersStorage", usersStorage);
 
 const RootStore = types
   .model("RootStore", {
@@ -42,6 +28,9 @@ const RootStore = types
     },
     get getUsers() {
       return self.users;
+    },
+    get isAccess() {
+      return self.session.isAuth;
     },
     searchUser(login: string, password: string) {
       return self.users.filter(
@@ -65,15 +54,18 @@ const RootStore = types
 
       login(login: string, password: string) {
         const user = self.searchUser(login, password);
-        if (user.length) {
-          localStorage.setItem("session", JSON.stringify({ session: user }));
-          localStorage.setItem("isAuth", JSON.stringify(true));
+        if (user[0]) {
+          localStorage.setItem("session", JSON.stringify(user[0]));
+          localStorage.setItem("isAuthentication", JSON.stringify(true));
+          self.session.isAuth = true;
           return "success";
         } else return "failed";
       },
 
       logout() {
-        localStorage.setItem("session", JSON.stringify(emptySession));
+        // localStorage.clear()
+        localStorage.setItem("session", JSON.stringify(null));
+        localStorage.setItem("isAuthentication", JSON.stringify(false));
       },
     };
   });
@@ -86,7 +78,7 @@ export function useStore() {
     rootStore = RootStore.create({
       session: {
         isAuth: isAuthentication,
-        session: sessionStorage,//  Type 'sessionType' is missing the following properties from type '{ userId: string; login: string; password: string; }': userId, login, password
+        session: currentSession,
       },
       users: usersStorage,
       hotels: hotelsData,

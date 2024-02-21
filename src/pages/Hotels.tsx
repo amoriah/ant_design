@@ -13,7 +13,7 @@ const Component = observer(() => {
   const rootStore = useStore();
   const { hotels } = rootStore;
   const hotelCards = hotels.map((hotel, i) => {
-    return <HotelCard {...hotel} />;
+    return <HotelCard {...hotel} key={i}/>;
   });
   // console.log("store", store);
 

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Button, Card, Form, Input } from "antd";
+import { Button, Card, Form, Input, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { useStore } from "../store/RootStore";
 import { useNavigate } from "react-router";
+
+const { Text } = Typography;
 
 const formItemLayout = {
   labelCol: {
@@ -113,6 +115,17 @@ export const Signup: React.FC = () => {
             <Button type="primary" htmlType="submit">
               Register
             </Button>
+            <Text
+              onClick={() => navigate("/login")}
+              style={{
+                display: "block",
+                paddingTop: "20px",
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+            >
+              Already have an account?
+            </Text>
           </Form.Item>
         </Form>
       </Card>
