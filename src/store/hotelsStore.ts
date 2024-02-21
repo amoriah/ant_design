@@ -12,7 +12,7 @@ const ReviewModel = types.model({
 
 export const HotelModel = types
   .model("HotelModel", {
-    id: types.identifier,
+    hotelId: types.identifier,
     hotelName: types.string,
     cost: types.number,
     address: types.string,

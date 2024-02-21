@@ -4,9 +4,12 @@ import { Header } from "antd/es/layout/layout";
 import type { MenuProps } from "antd";
 import { headerFlex, headerStyle } from "../pages/HotelsStyle";
 import { useNavigate } from "react-router";
+import { useStore } from "../store/RootStore";
 
 export const AppHeader = () => {
   const navigate = useNavigate();
+  const rootStore = useStore();
+  const { logout } = rootStore;
 
   const onSettings = () => {
     navigate("/account");
@@ -24,9 +27,7 @@ export const AppHeader = () => {
   ];
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
-    // message.info("Click on menu item.");
-    // console.log("click", e);
-    if (e.key === "2") console.log("logout");
+    if (e.key === "2") logout();
     if (e.key === "1") onSettings();
   };
 

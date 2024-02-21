@@ -18,8 +18,8 @@ const Component = (
   const { hotels } = rootStore;
 
 
-  const hotel = hotels.filter((hotel) => hotel.id === params.id);
-  const { id, hotelName, cost, address, reviews, stars, description, photos } =
+  const hotel = hotels.filter((hotel) => hotel.hotelId === params.id);
+  const { hotelId, hotelName, cost, address, reviews, stars, description, photos } =
     hotel[0];
 
 
@@ -29,7 +29,7 @@ const Component = (
   };
 
   const operReservationPage = () => {
-    navigate(`/hotels/${id}/reservation`);
+    navigate(`/hotels/${hotelId}/reservation`);
   };
 
   return (

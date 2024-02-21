@@ -2,14 +2,14 @@ import { Account } from "./Account";
 import { Hotel } from "./Hotel";
 import { Login } from "./Login";
 import { Hotels } from "./Hotels";
-import { Register } from "./Register";
+import { Signup } from "./Signup";
 import { Reservation } from "./Reservation";
 
 const pages = {
   Account,
   Hotel,
   Login,
-  Register,
+  Signup,
   Reservation,
   Hotels,
 };

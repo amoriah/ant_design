@@ -1,62 +1,71 @@
 import { Button, Card, Form, Input } from "antd";
 import { Content } from "antd/es/layout/layout";
+import { useNavigate } from "react-router";
+import { useStore } from "../store/RootStore";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
+export const Login = () => {
+  const navigate = useNavigate();
+  const rootStore = useStore();
+  const { login } = rootStore;
 
-type FieldType = {
-  username?: string;
-  password?: string;
-  remember?: string;
-};
+  const onFinish = (values: any) => {
+    const res = login(values.login, values.password);
+    if (res === "success") navigate("/hotels");
+    else {
+      alert("Неверный пользователь");
+      navigate(0);
+    }
+  };
 
-//сделать валидациб для пароля минимальную хотя бы
-export const Login = () => (
-  <Content
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-  >
-    <Card
+  return (
+    <Content
       style={{
-        marginTop: "3em",
-        width: "350px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <Form
-        name="login"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 12 }}
-        style={{ maxWidth: 600 }}
-        onFinish={onFinish}
-        autoComplete="off"
+      <Card
+        style={{
+          marginTop: "3em",
+          width: "350px",
+        }}
       >
-        <Form.Item<FieldType>
-          label="Login"
-          name="username"
-          rules={[{ required: true, message: "Please input your Login!" }]}
+        <Form
+          name="login"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 12 }}
+          style={{ maxWidth: 600 }}
+          scrollToFirstError
+          onFinish={onFinish}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item<FieldType>
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{ marginTop: "15px" }}
+          <Form.Item
+            label="Login"
+            name="login"
+            rules={[{ required: true, message: "Please input your Login!" }]}
           >
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-    </Card>
-  </Content>
-);
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Password"
+            name="password"
+            hasFeedback
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password autoComplete="off" />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ marginTop: "15px" }}
+            >
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
+    </Content>
+  );
+};

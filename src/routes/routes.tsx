@@ -1,4 +1,5 @@
 import { Navigate, RouteObject } from "react-router-dom";
+import { AuthProvider } from "../auth/AuthProvider";
 
 import pages from "../pages/index";
 
@@ -9,32 +10,32 @@ const routes: RouteObject[] = [
   },
   {
     path: "/hotels",
-    // element: <AuthProvider componentPage={<pages.MainPage />} />,
-    element: <pages.Hotels />,
+    element: <AuthProvider page={<pages.Hotels />} />,
+    // element: <pages.Hotels />,
   },
   {
     //вытаскивать определенный отель из store
     path: "/hotels/:id",
-    // element: <AuthProvider componentPage={<pages.MyVacancies />} />,
-    element: <pages.Hotel />,
+    element: <AuthProvider page={<pages.Hotel />} />,
+    // element: <pages.Hotel />,
   },
   {
     path: "/account",
-    // element: <AuthProvider componentPage={<pages.ActiveVacancies />} />,
-    element: <pages.Account />,
+    element: <AuthProvider page={<pages.Account />} />,
+    // element: <pages.Account />,
   },
   {
     path: "/hotels/:id/reservation",
-    // element: <AuthProvider componentPage={<pages.CreateVacancy />} />,
-    element: <pages.Reservation />,
+    element: <AuthProvider page={<pages.Reservation />} />,
+    // element: <pages.Reservation />,
   },
   {
     path: "/login",
     element: <pages.Login />,
   },
   {
-    path: "/register",
-    element: <pages.Register />,
+    path: "/signup",
+    element: <pages.Signup />,
   },
 ];
 

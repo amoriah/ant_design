@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-
+import { v4 as uuidv4 } from "uuid";
 import { Button, Card, Form, Input } from "antd";
 import { Content } from "antd/es/layout/layout";
+import { useStore } from "../store/RootStore";
+import { useNavigate } from "react-router";
 
 const formItemLayout = {
   labelCol: {
@@ -19,12 +21,21 @@ const tailFormItemLayout = {
   },
 };
 
-export const Register: React.FC = () => {
-  // const [form] = Form.useForm();
-  // console.log('form',form)
+export const Signup: React.FC = () => {
+  const navigate = useNavigate();
+  const rootStore = useStore();
+  const { registerUser, users } = rootStore;
 
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+    console.log("values", values);
+    const { login, password } = values;
+    const result = registerUser(uuidv4(), login, password);
+    console.log("users from register=", users);
+    if (result === "success") navigate("/login");
+    else {
+      alert("Такой пользователь уже существует");
+      navigate(0);
+    }
   };
 
   return (
@@ -49,12 +60,12 @@ export const Register: React.FC = () => {
           scrollToFirstError
         >
           <Form.Item
-            name="Username"
-            label="username"
+            name="login"
+            label="login"
             rules={[
               {
                 required: true,
-                message: "Please input your username!",
+                message: "Please input your login!",
                 whitespace: true,
               },
             ]}
