@@ -26,13 +26,11 @@ const tailFormItemLayout = {
 export const Signup: React.FC = () => {
   const navigate = useNavigate();
   const rootStore = useStore();
-  const { registerUser, users } = rootStore;
+  const { signup, users } = rootStore;
 
   const onFinish = (values: any) => {
-    console.log("values", values);
     const { login, password } = values;
-    const result = registerUser(uuidv4(), login, password);
-    console.log("users from register=", users);
+    const result = signup(uuidv4(), login, password);
     if (result === "success") navigate("/login");
     else {
       alert("Такой пользователь уже существует");
@@ -113,7 +111,7 @@ export const Signup: React.FC = () => {
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
-              Register
+              Signup
             </Button>
             <Text
               onClick={() => navigate("/login")}

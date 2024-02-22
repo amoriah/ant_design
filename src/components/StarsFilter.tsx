@@ -6,7 +6,8 @@ import { starsFill } from "../utils/utils";
 export const StarsFilter = () => {
   const [value, setValue] = useState(1);
   const onChangeRadio = (e: RadioChangeEvent) => {
-    console.log("radio checked", e.target.value);
+
+    // console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
 

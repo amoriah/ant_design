@@ -20,6 +20,7 @@ export const ReservationModel = types
     dateOut: types.string,
     daysCount: types.number,
     guestsCount: types.number,
+    bookDate: types.Date,
     status: StatusType,
   })
  

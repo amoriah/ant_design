@@ -67,7 +67,7 @@ export const Login = () => {
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
-              Submit
+            Login
             </Button>
 
             <Text

@@ -1,5 +1,6 @@
 import { Button, DatePicker, InputNumber, Row, Tooltip } from "antd";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Content } from "antd/es/layout/layout";
 import { useStore } from "../store/RootStore";
 import { useParams } from "react-router-dom";
@@ -19,6 +20,7 @@ export const CheckDetails: React.FC<ComponentProps> = observer(
     const [guests, setGuests] = useState<any>(1);
 
     const params = useParams();
+
     const rootStore = useStore();
     const { hotels } = rootStore;
 
@@ -30,7 +32,7 @@ export const CheckDetails: React.FC<ComponentProps> = observer(
     const handleSearch = () => {
       let days: number[] = [];
       const datesStrFormat = checkInDate.map((data: any) => {
-        const y = data.$y;
+        const y = data.$y
         const m = data.$M + 1;
         const d = data.$D;
         days.push(d);
@@ -40,7 +42,7 @@ export const CheckDetails: React.FC<ComponentProps> = observer(
       const bookCost = daysAmount * cost;
 
       setter({
-        reservId: "1",
+        reservId: uuidv4(),
         hotelId: hotelId,
         userId: "1",
         totalCost: bookCost,
@@ -49,6 +51,7 @@ export const CheckDetails: React.FC<ComponentProps> = observer(
         daysCount: daysAmount,
         guestsCount: guests,
         status: Status.Pending,
+        bookDate: new Date(),
       });
     };
 

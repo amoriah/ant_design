@@ -17,8 +17,8 @@ const Component = observer(() => {
   });
   // console.log("store", store);
 
-  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
-    console.log(info?.source, value);
+  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>{}
+    // console.log(info?.source, value);
 
   return (
     <>

@@ -1,23 +1,21 @@
 import { Button, Descriptions, Row } from "antd";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppLayout } from "../components/AppLayout";
 
 import { CheckDetails } from "../components/CheckDetails";
-// import { reservationItems } from "../data/reservDetails";
+
 import { useStore } from "../store/RootStore";
 import { DescriptionsProps } from "antd";
 import { ReservationModelType, Status } from "../store/reservationStore";
 
 const Component = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const rootStore = useStore();
-  const { hotels, reservations, getReservations, addReservation } = rootStore;
-  // const r = getReservations;
-  // console.log("getReservations", getReservations);
+  const { hotels, reservations, getReservations, book, session,  } = rootStore;
 
-  // const arr = r.map((r) => r);
-  // console.log(arr);
+  // console.log('session reserv-s', session.session?.reservations)
 
   const hotel = hotels.filter((hotel) => hotel.hotelId === params.id);
   const {
@@ -40,9 +38,9 @@ const Component = () => {
     daysCount: 0,
     guestsCount: 0,
     status: Status.Idle,
+    bookDate: new Date(),
   });
-
-  // console.log('reservState', reservState)
+///  ДНИ НЕПРАВИЛЬНО СЧИТАЮТСЯ!!!
   const reservationItems: DescriptionsProps["items"] = [
     {
       key: "1",
@@ -82,13 +80,12 @@ const Component = () => {
   ];
 
   const bookHotel = () => {
-    addReservation(reservState);
-    // console.log("забронировать");
-    console.log(getReservations.map((r) => console.log(r.guestsCount)));
+    book(reservState);
+    navigate('/account');
   };
   return (
     <>
-      <CheckDetails setter={setReservState}/>
+      <CheckDetails setter={setReservState} />
       {reservState.status !== "idle" && (
         <Row align="middle" justify="center">
           <Descriptions

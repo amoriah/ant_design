@@ -4,7 +4,7 @@ import { useState } from "react";
 export const CostFilter = () => {
   const [valueSlider, setValueSlider] = useState([800, 1500]);
   const onSliderChange = (diapazon: number[]) => {
-    console.log("valueSlider", diapazon);
+    // console.log("valueSlider", diapazon);
     setValueSlider(diapazon);
   };
   return (
