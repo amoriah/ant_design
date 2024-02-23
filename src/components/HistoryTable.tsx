@@ -1,4 +1,7 @@
-import { Divider, Table, Typography } from "antd";
+import { Button, Divider, Table, Typography } from "antd";
+
+import { observer } from "mobx-react-lite";
+import { useState } from "react";
 import { columns } from "../data/tableData";
 import { useStore } from "../store/RootStore";
 
@@ -12,15 +15,16 @@ interface BookTableType {
 
 const { Title } = Typography;
 
-export const HistoryTable = () => {
+export const HistoryTable = observer(() => {
+  const [selectedItems, setSelectedItems] = useState<React.Key[]>([]);
   const rootStore = useStore();
-  const { getUserBookHistory } = rootStore;
+  const { getUserBookHistory, deleteBook } = rootStore;
   const bookHistory = getUserBookHistory;
 
   const data: BookTableType[] = bookHistory.map((book) => {
     const dates = `${book.dateIn}-${book.dateOut}`;
-    const dateD = `${book.bookDate.getDate()}`.padStart(2, '0');
-    const dateM = `${book.bookDate.getMonth() + 1}`.padStart(2, '0');
+    const dateD = `${book.bookDate.getDate()}`.padStart(2, "0");
+    const dateM = `${book.bookDate.getMonth() + 1}`.padStart(2, "0");
     const dateY = book.bookDate.getFullYear();
     return {
       key: book.reservId,
@@ -31,11 +35,39 @@ export const HistoryTable = () => {
     };
   });
 
+  const handleDelete = () => {
+    deleteBook(selectedItems as string[]);
+  };
+
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    setSelectedItems(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedItems,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedItems.length > 0;
+
   return (
     <>
       <Divider style={{ marginTop: "30px" }}>История бронирований</Divider>
       {data.length ? (
-        <Table dataSource={data} columns={columns} />
+        <>
+          <div style={{ marginBottom: 16 }}>
+            <Button type="primary" onClick={handleDelete} disabled={!hasSelected}>
+              Delete
+            </Button>
+            <span style={{ marginLeft: 8 }}>
+              {hasSelected ? `Selected ${selectedItems.length} items` : ""}
+            </span>
+          </div>
+          <Table
+            rowSelection={rowSelection}
+            dataSource={data}
+            columns={columns}
+          />
+        </>
       ) : (
         <Title level={3} style={{ textAlign: "center" }}>
           История пуста
@@ -43,4 +75,4 @@ export const HistoryTable = () => {
       )}
     </>
   );
-};
+});

@@ -5,7 +5,6 @@ export enum Status {
   Pending = "pending",
   Success = "success",
   Error = "error",
-  Cancelled = "cancelled",
 }
 
 const StatusType = types.enumeration<Status>("Status", Object.values(Status));

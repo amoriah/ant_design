@@ -50,7 +50,7 @@ const RootStore = types
     updateUsersStore(user: any) {
       const oldUserIndex = self.users.indexOf(user);
       self.users.splice(oldUserIndex, 1, user);
-      return self.users;
+      localStorage.setItem("users", JSON.stringify(self.users));
     },
   }))
   .actions((self) => {
@@ -81,10 +81,16 @@ const RootStore = types
 
       book(reservation: ReservationModelType) {
         const user = self.searchUserById(self.session.session?.userId!);
-        const states = [Status.Error, Status.Success];
+        const states = [
+          Status.Success,
+          Status.Error,
+          Status.Success,
+          Status.Success,
+        ];
         const randomInx = Math.floor(Math.random() * states.length);
         reservation.status = states[randomInx];
         if (states[randomInx] === "error") return "error";
+        
         self.reservations.push({ ...reservation });
         localStorage.setItem("reservations", JSON.stringify(self.reservations));
 
@@ -92,9 +98,26 @@ const RootStore = types
         localStorage.setItem("session", JSON.stringify(self.session.session));
 
         user[0].reservations.push(reservation.reservId);
-        const newUsers = self.updateUsersStore(user[0]);
-        localStorage.setItem("users", JSON.stringify(newUsers));
+        self.updateUsersStore(user[0]);
+
         return "success";
+      },
+      deleteBook(ids: string[]) {
+        const user = self.searchUserById(self.session.session?.userId!);
+        ids.forEach((id) => {
+          const book = self.reservations.filter((r) => r.reservId === id);
+          const indexInReserv = self.reservations.indexOf(book[0]);
+          const indexInUser = user[0].reservations.indexOf(id);
+          self.reservations.splice(indexInReserv, 1);
+          user[0].reservations.splice(indexInUser, 1);
+
+          localStorage.setItem(
+            "reservations",
+            JSON.stringify(self.reservations)
+          );
+          localStorage.setItem("session", JSON.stringify(user[0]));
+          self.updateUsersStore(user[0]);
+        });
       },
 
       setAccountValue(newValue: string, id: string, key: keyof UserModelType) {
@@ -105,9 +128,7 @@ const RootStore = types
         self.session.session = JSON.parse(
           localStorage.getItem("session") || "null"
         );
-
-        const newUsers = self.updateUsersStore(user[0]);
-        localStorage.setItem("users", JSON.stringify(newUsers));
+        self.updateUsersStore(user[0]);
       },
       setCostDiapazon(diapazon: any) {
         self.filter.costDiapazon = diapazon;
