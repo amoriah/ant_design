@@ -22,13 +22,20 @@ export const HotelCard: React.FC<HotelModelType> = ({
   };
 
   const image = photos[0];
-
+  //border: "1px solid red",
   return (
-    <Card hoverable style={hotelCardStyle} key={hotelId} onClick={openHotelPage}>
+    <Card
+      hoverable
+      style={hotelCardStyle}
+      key={hotelId}
+      onClick={openHotelPage}
+    >
       <Row wrap={false} style={{ width: "100%" }}>
-        <Col style={{ width: "40%", textAlign: 'center' }}>
+        <Col style={{ width: "40%", display: "flex", flexDirection: "column" }}>
           <img src={image} width="280px" height="150px" alt="hotel" />
-          <Text italic>{address}</Text>
+          <Text italic style={{ display: "block", width: "280px" }}>
+            {address}
+          </Text>
         </Col>
         <Col style={{ width: "40%" }}>
           <Flex vertical justify={"space-around"} style={{ height: "100%" }}>

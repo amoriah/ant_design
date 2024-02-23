@@ -5,7 +5,8 @@
 }
 
 body {
-  overflow: hidden;
+  /* overflow: hidden;
+  overflow-x: auto; */
 }
 
 .ant-card-body {
@@ -20,3 +21,11 @@ body {
   background: #111;
   opacity: 0.3;
 }
+
+
+/* aside { */
+  /* min-width: 400px; */
+  /* background: red; */
+/* } */
+/* .ant-layout-sider ant-layout-sider-dark {
+} */

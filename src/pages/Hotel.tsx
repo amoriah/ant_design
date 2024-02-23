@@ -33,7 +33,7 @@ const Component = () => {
   };
 
   return (
-    <Content style={{ margin: "0 100px", background: "#fff" }}>
+    <Content style={{ margin: "0 100px", background: "#fff", }}>
       <Row justify={"space-between"} align={"middle"}>
         <Flex vertical>
           <Title level={2}>{hotelName}</Title>
