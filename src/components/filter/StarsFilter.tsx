@@ -1,7 +1,8 @@
-import { Card, Radio, Space } from "antd";
+import { useStore } from "../../store/rootStore";
+import { starsFill } from "../../utils/utils";
 import type { RadioChangeEvent } from "antd";
-import { starsFill } from "../utils/utils";
-import { useStore } from "../store/RootStore";
+import { Card, Radio, Space } from "antd";
+import { v4 as uuidv4 } from "uuid";
 
 export const StarsFilter = () => {
   const rootStore = useStore();
@@ -14,8 +15,8 @@ export const StarsFilter = () => {
   const starRender = () => {
     const stars = [1, 2, 3, 4, 5];
 
-    const element = stars.map((count, i) => (
-      <Radio value={count} key={i}>
+    const element = stars.map((count) => (
+      <Radio value={count} key={uuidv4()}>
         {starsFill(count)}
       </Radio>
     ));

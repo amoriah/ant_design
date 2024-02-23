@@ -13,7 +13,7 @@ const StatusType = types.enumeration<Status>("Status", Object.values(Status));
 export const ReservationModel = types
   .model("ReservationModel", {
     reservId: types.identifier,
-    hotelId: types.string,
+    hotel: types.string,
     userId: types.string,
     totalCost: types.number,
     dateIn: types.string,

@@ -1,12 +1,9 @@
-import { Button, Descriptions, message, Row } from "antd";
-import { useState } from "react";
+import { Button, Descriptions, message, Row, DescriptionsProps } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import { AppLayout } from "../components/AppLayout";
+import components from "../components";
+import { useStore } from "../store/rootStore";
+import { useState } from "react";
 
-import { CheckDetails } from "../components/CheckDetails";
-
-import { useStore } from "../store/RootStore";
-import { DescriptionsProps } from "antd";
 import { ReservationModelType, Status } from "../store/reservationStore";
 
 const Component = () => {
@@ -16,10 +13,10 @@ const Component = () => {
   const { hotels, book } = rootStore;
 
   const hotel = hotels.filter((hotel) => hotel.hotelId === params.id);
-  const { hotelId } = hotel[0];
+  const { hotelName } = hotel[0];
   const [reservState, setReservState] = useState<ReservationModelType>({
     reservId: "0",
-    hotelId: hotelId,
+    hotel: hotelName,
     userId: "0",
     totalCost: 0,
     dateIn: "",
@@ -44,7 +41,7 @@ const Component = () => {
     {
       key: "3",
       label: "Отель",
-      children: reservState.hotelId,
+      children: reservState.hotel,
     },
     {
       key: "5",
@@ -65,22 +62,21 @@ const Component = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const bookHotel = () => {
-    const bookResult = book(reservState);
-    const status = bookResult === "success" ? "success" : "error";
+    const result = book(reservState);
     const message: string = {
       success: "Бронирование подтверждено",
       error: "Бронирование отклонено",
-    }[status];
+    }[result];
     messageApi
       .open({
-        type: status,
+        type: result,
         content: message,
       })
-      .then(() => (status === "success" ? navigate("/account") : navigate(0)));
+      .then(() => (result === "success" ? navigate("/account") : navigate(0)));
   };
   return (
     <>
-      <CheckDetails setter={setReservState} />
+      <components.CheckDetails setter={setReservState} />
       {reservState.status !== "idle" && (
         <Row align="middle" justify="center">
           <Descriptions
@@ -110,5 +106,5 @@ const Component = () => {
 };
 
 export const Reservation = () => {
-  return <AppLayout content={<Component />} />;
+  return <components.AppLayout content={<Component />} />;
 };

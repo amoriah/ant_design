@@ -1,7 +1,8 @@
 import { Button, Card, Form, Input, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { useNavigate } from "react-router";
-import { useStore } from "../store/RootStore";
+import { useStore } from "../store/rootStore";
+import * as style from "../style/HotelsStyle";
 
 const { Text } = Typography;
 
@@ -11,31 +12,17 @@ export const Login = () => {
   const { login } = rootStore;
 
   const onFinish = (values: any) => {
-    const res = login(values.login, values.password);
+    const result = login(values.login, values.password);
 
-    if (res === "success") {
-      navigate("/hotels");
-    } else {
+    if (result === "success") navigate("/hotels");
+    else {
       alert("Неверный пользователь");
       navigate(0);
     }
   };
 
-  const tailFormItemLayout = {
-    wrapperCol: {
-      offset: 8,
-      span: 16,
-    },
-  };
-
   return (
-    <Content
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Content style={style.formContentStyle}>
       <Card
         style={{
           marginTop: "3em",
@@ -65,20 +52,12 @@ export const Login = () => {
           >
             <Input.Password autoComplete="off" />
           </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item {...style.tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
-            Login
+              Login
             </Button>
 
-            <Text
-              onClick={() => navigate("/signup")}
-              style={{
-                display: "block",
-                paddingTop: "20px",
-                textDecoration: "underline",
-                cursor: "pointer",
-              }}
-            >
+            <Text onClick={() => navigate("/signup")} style={style.formLinkTextStyle}>
               Create account
             </Text>
           </Form.Item>

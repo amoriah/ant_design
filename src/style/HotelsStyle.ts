@@ -57,7 +57,6 @@ export const hotelCardStyle: React.CSSProperties = {
   display: "flex",
   flexDirection: "row",
   cursor: "pointer",
-  
 };
 
 export const imgStyle: React.CSSProperties = {
@@ -80,4 +79,39 @@ export const accountTextStyle: React.CSSProperties = {
   width: "300px",
   display: "flex",
   justifyContent: "space-between",
+};
+
+export const formItemLayout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 12,
+  },
+};
+
+export const tailFormItemLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16,
+  },
+};
+
+export const formLinkTextStyle: React.CSSProperties = {
+  display: "block",
+  paddingTop: "20px",
+  textDecoration: "underline",
+  cursor: "pointer",
+};
+
+export const formContentStyle: React.CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}
+
+export const carouselStyle: React.CSSProperties = {
+  color: "#111",
+  height: "300px",
+  marginTop: "20px",
 };

@@ -1,32 +1,17 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Button, Card, Form, Input, Typography } from "antd";
-import { Content } from "antd/es/layout/layout";
-import { useStore } from "../store/RootStore";
 import { useNavigate } from "react-router";
+import { Content } from "antd/es/layout/layout";
+import { useStore } from "../store/rootStore";
+import { Button, Card, Form, Input, Typography } from "antd";
+import * as style from "../style/HotelsStyle";
 
 const { Text } = Typography;
-
-const formItemLayout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 12,
-  },
-};
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-};
 
 export const Signup: React.FC = () => {
   const navigate = useNavigate();
   const rootStore = useStore();
-  const { signup, users } = rootStore;
+  const { signup } = rootStore;
 
   const onFinish = (values: any) => {
     const { login, password } = values;
@@ -39,13 +24,7 @@ export const Signup: React.FC = () => {
   };
 
   return (
-    <Content
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Content style={style.formContentStyle}>
       <Card
         style={{
           marginTop: "3em",
@@ -53,7 +32,7 @@ export const Signup: React.FC = () => {
         }}
       >
         <Form
-          {...formItemLayout}
+          {...style.formItemLayout}
           name="register"
           onFinish={onFinish}
           style={{ maxWidth: 600 }}
@@ -109,19 +88,11 @@ export const Signup: React.FC = () => {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item {...style.tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
               Signup
             </Button>
-            <Text
-              onClick={() => navigate("/login")}
-              style={{
-                display: "block",
-                paddingTop: "20px",
-                textDecoration: "underline",
-                cursor: "pointer",
-              }}
-            >
+            <Text onClick={() => navigate("/login")} style={style.formLinkTextStyle}>
               Already have an account?
             </Text>
           </Form.Item>

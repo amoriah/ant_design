@@ -1,22 +1,14 @@
-import { Card, Slider } from "antd";
+import { useStore } from "../../store/rootStore";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../store/RootStore";
+import { Card, Slider } from "antd";
 
 export const CostFilter = observer(() => {
   const rootStore = useStore();
-  const { hotels, filter, setCostDiapazon } = rootStore;
-  let filtered: any = [];
+  const { filter, setCostDiapazon } = rootStore;
 
   const onSliderChange = (diapazon: number[]) => {
     setCostDiapazon(diapazon);
   };
-
-  // const handleFilter = (numbers: number[]) => {
-  //   filtered = hotels.filter(
-  //     (hotel) => hotel.cost >= valueSlider[0] && hotel.cost <= valueSlider[1]
-  //   );
-  //   filtered.map((f: any) => console.log(f.cost));
-  // };
 
   return (
     <Card
@@ -31,7 +23,6 @@ export const CostFilter = observer(() => {
         min={100}
         value={[filter.costDiapazon[0], filter.costDiapazon[1]]}
         onChange={onSliderChange}
-        // onChangeComplete={handleFilter}
       />
       {`От ${filter.costDiapazon[0]} до ${filter.costDiapazon[1]} рублей`}
     </Card>

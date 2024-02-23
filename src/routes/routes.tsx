@@ -11,23 +11,18 @@ const routes: RouteObject[] = [
   {
     path: "/hotels",
     element: <AuthProvider page={<pages.Hotels />} />,
-    // element: <pages.Hotels />,
   },
   {
-    //вытаскивать определенный отель из store
     path: "/hotels/:id",
     element: <AuthProvider page={<pages.Hotel />} />,
-    // element: <pages.Hotel />,
   },
   {
     path: "/account",
     element: <AuthProvider page={<pages.Account />} />,
-    // element: <pages.Account />,
   },
   {
     path: "/hotels/:id/reservation",
     element: <AuthProvider page={<pages.Reservation />} />,
-    // element: <pages.Reservation />,
   },
   {
     path: "/login",

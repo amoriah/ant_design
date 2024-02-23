@@ -1,12 +1,11 @@
-import { Col, Divider, Row, Table, Typography } from "antd";
+import { Col, Row, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { observer } from "mobx-react-lite";
-import { AppLayout } from "../components/AppLayout";
-import { HistoryTable } from "../components/HistoryTable";
-import { columns, dataSource } from "../data/tableData";
-import { useStore } from "../store/RootStore";
+import components from "../components";
+import { useStore } from "../store/rootStore";
 import { UserModelType } from "../store/usersStore";
-import { accountFieldStyle, accountTextStyle } from "./HotelsStyle";
+import * as style from "../style/HotelsStyle";
+import { v4 as uuidv4 } from "uuid";
 
 const { Text, Title } = Typography;
 
@@ -18,7 +17,7 @@ type fieldType = {
 
 const Component = observer(() => {
   const rootStore = useStore();
-  const { session, setValue } = rootStore;
+  const { session, setAccountValue } = rootStore;
 
   const accountFieldsItems: fieldType[] = [
     {
@@ -43,17 +42,17 @@ const Component = observer(() => {
     },
   ];
 
-  const fieldsItems = accountFieldsItems.map((item, i) => {
+  const fieldsItems = accountFieldsItems.map((item) => {
     return (
-      <Row style={accountFieldStyle} key={i}>
+      <Row style={style.accountFieldStyle} key={uuidv4()}>
         <Title level={4}>{item.title}</Title>
         <Text
           editable={{
             onChange: (value: string) => {
-              setValue(value, session.session!.userId, item.key);
+              setAccountValue(value, session.session!.userId, item.key);
             },
           }}
-          style={accountTextStyle}
+          style={style.accountTextStyle}
         >
           {item.value}
         </Text>
@@ -64,13 +63,11 @@ const Component = observer(() => {
   return (
     <Content style={{ margin: "0 100px" }}>
       <Col>{fieldsItems}</Col>
-      <HistoryTable />
-      {/* <Divider style={{ marginTop: "30px" }}>История бронирований</Divider>
-      <Table dataSource={dataSource} columns={columns} /> */}
+      <components.HistoryTable />
     </Content>
   );
 });
 
 export const Account = () => {
-  return <AppLayout content={<Component />} />;
+  return <components.AppLayout content={<Component />} />;
 };

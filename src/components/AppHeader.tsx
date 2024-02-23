@@ -1,10 +1,11 @@
 import { UserOutlined } from "@ant-design/icons";
-import { Dropdown, Flex } from "antd";
 import { Header } from "antd/es/layout/layout";
-import type { MenuProps } from "antd";
-import { headerFlex, headerStyle } from "../pages/HotelsStyle";
+import * as style from "../style/HotelsStyle";
+import { useStore } from "../store/rootStore";
 import { useNavigate } from "react-router";
-import { useStore } from "../store/RootStore";
+import { Dropdown, Flex } from "antd";
+import type { MenuProps } from "antd";
+import { menuItems } from "../data/headerData";
 
 export const AppHeader = () => {
   const navigate = useNavigate();
@@ -15,23 +16,19 @@ export const AppHeader = () => {
     navigate("/account");
   };
 
-  const menuItems: MenuProps["items"] = [
-    {
-      label: "Настройки",
-      key: "1",
-    },
-    {
-      label: "Выйти",
-      key: "2",
-    },
-  ];
-
   const handleMenuClick: MenuProps["onClick"] = (e) => {
-    if (e.key === "2") {
-      logout();
-      navigate("/login");
+    switch (e.key) {
+      case "1":
+        onSettings();
+        break;
+      case "2":
+        logout();
+        navigate("/login");
+        break;
+
+      default:
+        break;
     }
-    if (e.key === "1") onSettings();
   };
 
   const goSearchHotels = () => {
@@ -40,8 +37,8 @@ export const AppHeader = () => {
 
   return (
     <div>
-      <Header style={headerStyle}>
-        <Flex style={headerFlex}>
+      <Header style={style.headerStyle}>
+        <Flex style={style.headerFlex}>
           <img
             onClick={goSearchHotels}
             src="/logo.svg"

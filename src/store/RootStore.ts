@@ -2,6 +2,7 @@ import { applySnapshot, getSnapshot, Instance, types } from "mobx-state-tree";
 import { hotels as hotelsData } from "../data/hotelsData";
 import { FilterModel } from "./filterStore";
 import { HotelModel } from "./hotelsStore";
+import localStore from "./localStorage";
 import {
   ReservationModel,
   ReservationModelType,
@@ -9,16 +10,6 @@ import {
 } from "./reservationStore";
 import { SessionModel } from "./sessionStore";
 import { UserModel, UserModelType } from "./usersStore";
-
-const isAuthentication = localStorage.getItem("isAuthentication") === "true";
-
-const sessionStr = localStorage.getItem("session");
-const currentSession = sessionStr ? JSON.parse(sessionStr) : null;
-
-const usersStorage = JSON.parse(localStorage.getItem("users") || "[]");
-const reservationsStore = JSON.parse(
-  localStorage.getItem("reservations") || "[]"
-);
 
 const RootStore = types
   .model("RootStore", {
@@ -30,20 +21,15 @@ const RootStore = types
   })
   .views((self) => ({
     get getHotels() {
-      const res = self.hotels.filter((hotel) => {
-        return (
+      return self.hotels.filter(
+        (hotel) =>
           hotel.stars === self.filter.starsCount &&
           hotel.cost >= self.filter.costDiapazon[0] &&
           hotel.cost <= self.filter.costDiapazon[1]
-        );
-      });
-      return res;
+      );
     },
     get getReservations() {
       return self.reservations;
-    },
-    get getUsers() {
-      return self.users;
     },
     get isAccess() {
       return self.session.isAuth;
@@ -97,9 +83,9 @@ const RootStore = types
       book(reservation: ReservationModelType) {
         const user = self.searchUserById(self.session.session?.userId!);
         const states = [Status.Error, Status.Success];
-        const inx = Math.floor(Math.random() * states.length);
-        reservation.status = states[inx];
-        if (states[inx] === "error") return "error";
+        const randomInx = Math.floor(Math.random() * states.length);
+        reservation.status = states[randomInx];
+        if (states[randomInx] === "error") return "error";
         self.reservations.push({ ...reservation });
         localStorage.setItem("reservations", JSON.stringify(self.reservations));
 
@@ -109,21 +95,20 @@ const RootStore = types
         user[0].reservations.push(reservation.reservId);
         const newUsers = self.updateUsersStore(user[0]);
         localStorage.setItem("users", JSON.stringify(newUsers));
-        return states[inx] as string;
+        return "success";
       },
 
-      setValue(newValue: string, id: string, key: keyof UserModelType) {
+      setAccountValue(newValue: string, id: string, key: keyof UserModelType) {
         const user = self.searchUserById(id);
-        if (user) {
-          applySnapshot(user[0], { ...getSnapshot(user[0]), [key]: newValue });
-          localStorage.setItem("session", JSON.stringify(user[0]));
-          self.session.session = JSON.parse(
-            localStorage.getItem("session") || "null"
-          );
 
-          const newUsers = self.updateUsersStore(user[0]);
-          localStorage.setItem("users", JSON.stringify(newUsers));
-        }
+        applySnapshot(user[0], { ...getSnapshot(user[0]), [key]: newValue });
+        localStorage.setItem("session", JSON.stringify(user[0]));
+        self.session.session = JSON.parse(
+          localStorage.getItem("session") || "null"
+        );
+
+        const newUsers = self.updateUsersStore(user[0]);
+        localStorage.setItem("users", JSON.stringify(newUsers));
       },
       setCostDiapazon(diapazon: any) {
         self.filter.costDiapazon = diapazon;
@@ -141,15 +126,15 @@ export function useStore() {
   if (!rootStore) {
     rootStore = RootStore.create({
       session: {
-        isAuth: isAuthentication,
-        session: currentSession,
+        isAuth: localStore.isAuthentication,
+        session: localStore.currentSession,
       },
-      users: usersStorage,
+      users: localStore.usersStorage,
       hotels: hotelsData,
-      reservations: reservationsStore,
+      reservations: localStore.reservationsStore,
       filter: {
-        starsCount: 5,
-        costDiapazon: [300, 3000],
+        starsCount: 4,
+        costDiapazon: [300, 4000],
       },
     });
   }

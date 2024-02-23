@@ -3,30 +3,30 @@ import { Content } from "antd/es/layout/layout";
 import { useNavigate } from "react-router";
 import { AppLayout } from "../components/AppLayout";
 import { starsFill } from "../utils/utils";
-import { imgStyle } from "./HotelsStyle";
+import { carouselStyle, imgStyle } from "../style/HotelsStyle";
 import { useParams } from "react-router";
-import { useStore } from "../store/RootStore";
+import { useStore } from "../store/rootStore";
+import { v4 as uuidv4 } from "uuid";
 
 const { Text, Title } = Typography;
 
-const Component = (
- 
-) => {
+const Component = () => {
   const navigate = useNavigate();
   const params = useParams();
   const rootStore = useStore();
   const { hotels } = rootStore;
 
-
   const hotel = hotels.filter((hotel) => hotel.hotelId === params.id);
-  const { hotelId, hotelName, cost, address, reviews, stars, description, photos } =
-    hotel[0];
-
-
-
-  const onChange = (currentSlide: number) => {
-    // console.log(currentSlide);
-  };
+  const {
+    hotelId,
+    hotelName,
+    cost,
+    address,
+    reviews,
+    stars,
+    description,
+    photos,
+  } = hotel[0];
 
   const operReservationPage = () => {
     navigate(`/hotels/${hotelId}/reservation`);
@@ -47,13 +47,10 @@ const Component = (
           Забронировать
         </Button>
       </Row>
-      <Carousel
-        afterChange={onChange}
-        style={{ color: "#111", height: "300px", marginTop: "20px" }}
-      >
-        {photos.map((img, i) => (
-          <div key={i}>
-            <img src={img} style={imgStyle} alt="image" />
+      <Carousel style={carouselStyle}>
+        {photos.map((img) => (
+          <div key={uuidv4()}>
+            <img src={img} style={imgStyle} alt="hotel" />
           </div>
         ))}
       </Carousel>
@@ -69,11 +66,11 @@ const Component = (
       <Col style={{ marginTop: "20px", textAlign: "center" }}>
         <Title level={5}>Отзывы</Title>
         <Row justify={"space-evenly"} wrap={false}>
-          {reviews.map((review, i) => (
+          {reviews.map((review) => (
             <Card
               style={{ whiteSpace: "wrap", width: "250px" }}
               title={review.user}
-              key={i}
+              key={uuidv4()}
             >
               <Text>{review.text}</Text>
             </Card>
@@ -85,6 +82,5 @@ const Component = (
 };
 
 export const Hotel = () => {
-
   return <AppLayout content={<Component />} />;
 };

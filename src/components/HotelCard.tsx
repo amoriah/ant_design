@@ -1,7 +1,7 @@
 import { Card, Col, Flex, Row, Typography } from "antd";
-import { useNavigate } from "react-router";
-import { hotelCardStyle } from "../pages/HotelsStyle";
+import { hotelCardStyle } from "../style/HotelsStyle";
 import { HotelModelType } from "../store/hotelsStore";
+import { useNavigate } from "react-router";
 import { starsFill } from "../utils/utils";
 
 const { Text, Title } = Typography;
@@ -16,6 +16,7 @@ export const HotelCard: React.FC<HotelModelType> = ({
   photos,
 }) => {
   const navigate = useNavigate();
+
   const openHotelPage = () => {
     navigate(`/hotels/${hotelId}`);
   };
@@ -26,7 +27,7 @@ export const HotelCard: React.FC<HotelModelType> = ({
     <Card hoverable style={hotelCardStyle} key={hotelId} onClick={openHotelPage}>
       <Row wrap={false} style={{ width: "100%" }}>
         <Col style={{ width: "40%", textAlign: 'center' }}>
-          <img src={image} width="280px" height="150px" />
+          <img src={image} width="280px" height="150px" alt="hotel" />
           <Text italic>{address}</Text>
         </Col>
         <Col style={{ width: "40%" }}>

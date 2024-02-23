@@ -1,34 +1,35 @@
-import { AppLayout } from "../components/AppLayout";
 import { Content } from "antd/es/layout/layout";
-import { Flex } from "antd";
-import { contentFlexStyle, contentStyle } from "./HotelsStyle";
-import { FilterBar } from "../components/FilterBar";
-import { HotelCard } from "../components/HotelCard";
-import Search from "antd/es/input/Search";
 import type { SearchProps } from "antd/es/input/Search";
+import { useStore } from "../store/rootStore";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../store/RootStore";
+import Search from "antd/es/input/Search";
+import * as style from "../style/HotelsStyle";
+import components from "../components";
 import { useState } from "react";
+import { Flex } from "antd";
+import { v4 as uuidv4 } from "uuid";
 
 const Component = observer(() => {
-  const [addres, setAddres] = useState("");
+  const [address, setAddress] = useState("");
+
   const rootStore = useStore();
   const { getHotels } = rootStore;
+
   const fillteredHotels = getHotels.filter((hotel) =>
-    hotel.address.toLowerCase().includes(addres.toLowerCase())
+    hotel.address.toLowerCase().includes(address.toLowerCase())
   );
-  const hotelCards = fillteredHotels.map((hotel, i) => {
-    return <HotelCard {...hotel} key={i} />;
+  const hotelCards = fillteredHotels.map((hotel) => {
+    return <components.HotelCard {...hotel} key={uuidv4()} />;
   });
   const onSearch: SearchProps["onSearch"] = (value) => {
-    setAddres(value);
+    setAddress(value);
   };
 
   return (
     <>
-      <FilterBar />
-      <Content style={contentStyle}>
-        <Flex style={contentFlexStyle}>
+      <components.FilterBar />
+      <Content style={style.contentStyle}>
+        <Flex style={style.contentFlexStyle}>
           <Search
             placeholder="Address"
             allowClear
@@ -45,5 +46,5 @@ const Component = observer(() => {
 });
 
 export const Hotels: React.FC = () => {
-  return <AppLayout content={<Component />} />;
+  return <components.AppLayout content={<Component />} />;
 };
