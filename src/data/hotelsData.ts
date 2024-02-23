@@ -36,7 +36,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "1",
     hotelName: "Luxury Palace",
-    cost: 300,
+    cost: 3000,
     address: "123 Main Street, New York",
     reviews: [
       {
@@ -65,7 +65,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "2",
     hotelName: "Seaside Retreat",
-    cost: 150,
+    cost: 1500,
     address: "456 Beach Avenue, Miami",
     reviews: [
       {
@@ -95,7 +95,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "3",
     hotelName: "Mountain Lodge",
-    cost: 200,
+    cost: 2000,
     address: "789 Pine Street, Aspen",
     reviews: [
       {
@@ -124,7 +124,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "4",
     hotelName: "Sunset Beach",
-    cost: 150,
+    cost: 3500,
     address: "123 Ocean Avenue, Miami, FL",
     reviews: [
       {
@@ -152,7 +152,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "5",
     hotelName: "Mountain Lodge",
-    cost: 120,
+    cost: 1200,
     address: "456 Mountain Road, Aspen, CO",
     reviews: [
       {
@@ -180,7 +180,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "6",
     hotelName: "City Lights",
-    cost: 100,
+    cost: 1000,
     address: "789 City Street, New York, NY",
     reviews: [
       {
@@ -209,7 +209,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "7",
     hotelName: "Sunset Beach",
-    cost: 150,
+    cost: 4500,
     address: "123 Ocean Avenue, Miami Beach, FL",
     reviews: [
       {
@@ -233,7 +233,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "8",
     hotelName: "Mountain View",
-    cost: 100,
+    cost: 1300,
     address: "456 Mountain Road, Aspen, CO",
     reviews: [
       {
@@ -261,7 +261,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "9",
     hotelName: "City Lights",
-    cost: 80,
+    cost: 800,
     address: "789 Downtown Street, New York, NY",
     reviews: [
       {
@@ -318,7 +318,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "11",
     hotelName: "Mountain Retreat",
-    cost: 120,
+    cost: 600,
     address: "456 Forest Road, Colorado",
     reviews: [
       {
@@ -346,7 +346,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "12",
     hotelName: "City Lights",
-    cost: 200,
+    cost: 2600,
     address: "789 Downtown Street, New York",
     reviews: [
       {
@@ -370,7 +370,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "13",
     hotelName: "Sunset Paradise",
-    cost: 150,
+    cost: 1900,
     address: "123 Ocean Avenue, Miami, FL",
     reviews: [
       {
@@ -400,7 +400,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "14",
     hotelName: "Mountain Retreat",
-    cost: 120,
+    cost: 3100,
     address: "456 Mountain Road, Aspen, CO",
     reviews: [
       {
@@ -430,7 +430,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "15",
     hotelName: "Ocean Blue",
-    cost: 150,
+    cost: 400,
     address: "123 Beach St, Miami",
     reviews: [
       {
@@ -460,7 +460,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "16",
     hotelName: "Mountain Retreat",
-    cost: 100,
+    cost: 900,
     address: "456 Mountain Rd, Aspen",
     reviews: [
       {
@@ -490,7 +490,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "17",
     hotelName: "Sunset Beach",
-    cost: 150,
+    cost: 5000,
     address: "123 Ocean Avenue, Miami, FL",
     reviews: [
       {
@@ -520,7 +520,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "18",
     hotelName: "Mountain View",
-    cost: 120,
+    cost: 9800,
     address: "456 Main Street, Aspen, CO",
     reviews: [
       {
@@ -550,7 +550,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "19",
     hotelName: "Ocean View",
-    cost: 150,
+    cost: 6200,
     address: "123 Ocean Drive, Miami, FL",
     reviews: [
       {
@@ -580,7 +580,7 @@ export const hotels: HotelModelType[] = [
   {
     hotelId: "20",
     hotelName: "Mountain Lodge",
-    cost: 120,
+    cost: 7400,
     address: "456 Mountain Road, Aspen, CO",
     reviews: [
       {

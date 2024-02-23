@@ -14,83 +14,86 @@ interface ComponentProps {
   setter: React.Dispatch<React.SetStateAction<ReservationModelType>>;
 }
 
-export const CheckDetails: React.FC<ComponentProps> = observer(
-  ({  setter }) => {
-    const [checkInDate, setCheckInDate] = useState<any>(null); //убрать any
-    const [guests, setGuests] = useState<any>(1);
+export const CheckDetails: React.FC<ComponentProps> = observer(({ setter }) => {
+  const [dates, setDates] = useState<any>(null); //убрать any
+  const [guests, setGuests] = useState<any>(1);
 
-    const params = useParams();
+  const params = useParams();
 
-    const rootStore = useStore();
-    const { hotels } = rootStore;
+  const rootStore = useStore();
+  const { hotels, session } = rootStore;
 
-    const hotel = hotels.filter((hotel) => hotel.hotelId === params.id);
-    const { hotelId, cost } = hotel[0];
+  const hotel = hotels.filter((hotel) => hotel.hotelId === params.id);
+  const { hotelName, cost } = hotel[0];
 
-    const dateFormat = "YYYY.MM.DD";
+  const dateFormat = "YYYY.MM.DD";
+  /*
 
-    const handleSearch = () => {
-      let days: number[] = [];
-      const datesStrFormat = checkInDate.map((data: any) => {
-        const y = data.$y
-        const m = data.$M + 1;
-        const d = data.$D;
-        days.push(d);
-        return `${d < 10 ? "0" + d : d}.${m < 10 ? "0" + m : m}.${y}`;
-      });
-      const daysAmount = days[1] - days[0] + 1;
-      const bookCost = daysAmount * cost;
+    */
 
-      setter({
-        reservId: uuidv4(),
-        hotelId: hotelId,
-        userId: "1",
-        totalCost: bookCost,
-        dateIn: datesStrFormat[0],
-        dateOut: datesStrFormat[1],
-        daysCount: daysAmount,
-        guestsCount: guests,
-        status: Status.Pending,
-        bookDate: new Date(),
-      });
-    };
+  const handleSearch = () => {
+    let days: number[] = [];
+    const datesStrFormat = dates.map((data: any) => {
+      console.log('data', data)
+      const y = data.$y;
+      const m = data.$M + 1;
+      const d = data.$D;
+      days.push(d);
+      return `${d < 10 ? "0" + d : d}.${m < 10 ? "0" + m : m}.${y}`;
+    });
+    const timeDiff = dates[1].valueOf() - dates[0].valueOf() ;
+    const daysAmount = Math.round(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+    const bookCost = daysAmount * cost;
 
-    return (
-      <Content
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "3em",
-        }}
-      >
-        <Row>
-          <RangePicker
+    setter({
+      reservId: uuidv4(),
+      hotelId: hotelName,
+      userId:  session.session?.userId!,
+      totalCost: bookCost,
+      dateIn: datesStrFormat[0],
+      dateOut: datesStrFormat[1],
+      daysCount: daysAmount,
+      guestsCount: guests,
+      status: Status.Pending,
+      bookDate: new Date(),
+    });
+  };
+
+  return (
+    <Content
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        margin: "3em",
+      }}
+    >
+      <Row>
+        <RangePicker
+          size="large"
+          format={dateFormat}
+          placeholder={["Дата заезда", "Дата выезда"]}
+          onChange={(date) => setDates(date)}
+          style={{ marginRight: "10px" }}
+        />
+        <Tooltip placement="top" title={"количество гостей"}>
+          <InputNumber
             size="large"
-            format={dateFormat}
-            placeholder={["Дата заезда", "Дата выезда"]}
-            onChange={(date) => setCheckInDate(date)}
+            min={1}
+            max={5}
+            defaultValue={1}
+            onChange={(value) => setGuests(value)}
             style={{ marginRight: "10px" }}
           />
-          <Tooltip placement="top" title={"количество гостей"}>
-            <InputNumber
-              size="large"
-              min={1}
-              max={5}
-              defaultValue={1}
-              onChange={(value) => setGuests(value)}
-              style={{ marginRight: "10px" }}
-            />
-          </Tooltip>
-          <Button
-            size="large"
-            type="primary"
-            onClick={handleSearch}
-            style={{ background: "#f4d02e", color: "#111" }}
-          >
-            Выбрать
-          </Button>
-        </Row>
-      </Content>
-    );
-  }
-);
+        </Tooltip>
+        <Button
+          size="large"
+          type="primary"
+          onClick={handleSearch}
+          style={{ background: "#f4d02e", color: "#111" }}
+        >
+          Выбрать
+        </Button>
+      </Row>
+    </Content>
+  );
+});

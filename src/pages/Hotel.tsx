@@ -25,7 +25,7 @@ const Component = (
 
 
   const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
+    // console.log(currentSlide);
   };
 
   const operReservationPage = () => {

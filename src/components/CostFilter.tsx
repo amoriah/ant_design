@@ -1,24 +1,22 @@
 import { Card, Slider } from "antd";
-import { useState } from "react";
+import { observer } from "mobx-react-lite";
 import { useStore } from "../store/RootStore";
 
-export const CostFilter = () => {
+export const CostFilter = observer(() => {
   const rootStore = useStore();
-  const { hotels } = rootStore;
+  const { hotels, filter, setCostDiapazon } = rootStore;
   let filtered: any = [];
 
-  const [valueSlider, setValueSlider] = useState([800, 1500]);
   const onSliderChange = (diapazon: number[]) => {
-    // console.log("valueSlider", diapazon);
-    setValueSlider(diapazon);
+    setCostDiapazon(diapazon);
   };
 
-  const filterrr = (numbers: number[]) => {
-    filtered = hotels.filter(
-      (hotel) => hotel.cost >= valueSlider[0] && hotel.cost <= valueSlider[1]
-    );
-    filtered.map((f: any) => console.log(f.cost));
-  };
+  // const handleFilter = (numbers: number[]) => {
+  //   filtered = hotels.filter(
+  //     (hotel) => hotel.cost >= valueSlider[0] && hotel.cost <= valueSlider[1]
+  //   );
+  //   filtered.map((f: any) => console.log(f.cost));
+  // };
 
   return (
     <Card
@@ -29,14 +27,13 @@ export const CostFilter = () => {
     >
       <Slider
         range={{ draggableTrack: true }}
-        defaultValue={[800, 1500]}
-        max={3000}
-        min={300}
-        value={valueSlider}
+        max={10000}
+        min={100}
+        value={[filter.costDiapazon[0], filter.costDiapazon[1]]}
         onChange={onSliderChange}
-        onChangeComplete={filterrr}
+        // onChangeComplete={handleFilter}
       />
-      {`От ${valueSlider[0]} до ${valueSlider[1]} рублей`}
+      {`От ${filter.costDiapazon[0]} до ${filter.costDiapazon[1]} рублей`}
     </Card>
   );
-};
+});

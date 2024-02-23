@@ -8,17 +8,21 @@ import Search from "antd/es/input/Search";
 import type { SearchProps } from "antd/es/input/Search";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../store/RootStore";
+import { useState } from "react";
 
 const Component = observer(() => {
+  const [addres, setAddres] = useState("");
   const rootStore = useStore();
-  const { hotels } = rootStore;
-  const hotelCards = hotels.map((hotel, i) => {
-    return <HotelCard {...hotel} key={i}/>;
+  const { getHotels } = rootStore;
+  const fillteredHotels = getHotels.filter((hotel) =>
+    hotel.address.toLowerCase().includes(addres.toLowerCase())
+  );
+  const hotelCards = fillteredHotels.map((hotel, i) => {
+    return <HotelCard {...hotel} key={i} />;
   });
-  // console.log("store", store);
-
-  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>{}
-    // console.log(info?.source, value);
+  const onSearch: SearchProps["onSearch"] = (value) => {
+    setAddres(value);
+  };
 
   return (
     <>
@@ -32,13 +36,14 @@ const Component = observer(() => {
             style={{ width: "70%", marginRight: "15px" }}
             size="large"
           />
+
           {hotelCards}
         </Flex>
       </Content>
     </>
   );
 });
-//observer сколько нада?
-export const Hotels: React.FC = observer(() => {
+
+export const Hotels: React.FC = () => {
   return <AppLayout content={<Component />} />;
-});
+};

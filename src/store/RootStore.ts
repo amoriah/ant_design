@@ -1,7 +1,12 @@
 import { applySnapshot, getSnapshot, Instance, types } from "mobx-state-tree";
 import { hotels as hotelsData } from "../data/hotelsData";
+import { FilterModel } from "./filterStore";
 import { HotelModel } from "./hotelsStore";
-import { ReservationModel, ReservationModelType } from "./reservationStore";
+import {
+  ReservationModel,
+  ReservationModelType,
+  Status,
+} from "./reservationStore";
 import { SessionModel } from "./sessionStore";
 import { UserModel, UserModelType } from "./usersStore";
 
@@ -21,10 +26,18 @@ const RootStore = types
     users: types.array(UserModel),
     hotels: types.array(HotelModel),
     reservations: types.array(ReservationModel),
+    filter: FilterModel,
   })
   .views((self) => ({
     get getHotels() {
-      return self.hotels;
+      const res = self.hotels.filter((hotel) => {
+        return (
+          hotel.stars === self.filter.starsCount &&
+          hotel.cost >= self.filter.costDiapazon[0] &&
+          hotel.cost <= self.filter.costDiapazon[1]
+        );
+      });
+      return res;
     },
     get getReservations() {
       return self.reservations;
@@ -40,10 +53,6 @@ const RootStore = types
         self.session.session?.reservations.includes(reservation.reservId)
       );
     },
-    // get filterByStars() {
-
-    // }
-
     searchUserByPassword(login: string, password: string) {
       return self.users.filter(
         (u) => u.login === login && u.password === password
@@ -86,18 +95,21 @@ const RootStore = types
       },
 
       book(reservation: ReservationModelType) {
-        const user = self.searchUserById(self.session.session?.userId!); //получаю пользвваттелья
+        const user = self.searchUserById(self.session.session?.userId!);
+        const states = [Status.Error, Status.Success];
+        const inx = Math.floor(Math.random() * states.length);
+        reservation.status = states[inx];
+        if (states[inx] === "error") return "error";
+        self.reservations.push({ ...reservation });
+        localStorage.setItem("reservations", JSON.stringify(self.reservations));
 
-        //reservations state update
-        self.reservations.push({ ...reservation }); //в стор резерваций пушу бронь
-        localStorage.setItem("reservations", JSON.stringify(self.reservations)); // сохраняю эту бронь так де сторадж с сохранение брони покончено
-        //session state update
-        self.session.session?.reservations.push(reservation.reservId); // сохраняю в стор сессии эту бронь
-        localStorage.setItem("session", JSON.stringify(self.session.session)); // так же сохраняю бронь в сторадж сессии
-        //users state update
+        self.session.session?.reservations.push(reservation.reservId);
+        localStorage.setItem("session", JSON.stringify(self.session.session));
+
         user[0].reservations.push(reservation.reservId);
         const newUsers = self.updateUsersStore(user[0]);
         localStorage.setItem("users", JSON.stringify(newUsers));
+        return states[inx] as string;
       },
 
       setValue(newValue: string, id: string, key: keyof UserModelType) {
@@ -112,6 +124,12 @@ const RootStore = types
           const newUsers = self.updateUsersStore(user[0]);
           localStorage.setItem("users", JSON.stringify(newUsers));
         }
+      },
+      setCostDiapazon(diapazon: any) {
+        self.filter.costDiapazon = diapazon;
+      },
+      setStarsCount(stars: number) {
+        self.filter.starsCount = stars;
       },
     };
   });
@@ -129,6 +147,10 @@ export function useStore() {
       users: usersStorage,
       hotels: hotelsData,
       reservations: reservationsStore,
+      filter: {
+        starsCount: 5,
+        costDiapazon: [300, 3000],
+      },
     });
   }
   return rootStore;

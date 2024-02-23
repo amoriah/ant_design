@@ -15,7 +15,6 @@ export const HotelCard: React.FC<HotelModelType> = ({
   stars,
   photos,
 }) => {
-  //вынести в общую функцию дубликат это
   const navigate = useNavigate();
   const openHotelPage = () => {
     navigate(`/hotels/${hotelId}`);
@@ -28,7 +27,7 @@ export const HotelCard: React.FC<HotelModelType> = ({
       <Row wrap={false} style={{ width: "100%" }}>
         <Col style={{ width: "40%", textAlign: 'center' }}>
           <img src={image} width="280px" height="150px" />
-          <Text italic>{`Адрес: ${address}`}</Text>
+          <Text italic>{address}</Text>
         </Col>
         <Col style={{ width: "40%" }}>
           <Flex vertical justify={"space-around"} style={{ height: "100%" }}>

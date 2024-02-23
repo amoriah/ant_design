@@ -1,4 +1,4 @@
-import { Button, Descriptions, Row } from "antd";
+import { Button, Descriptions, message, Row } from "antd";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppLayout } from "../components/AppLayout";
@@ -13,21 +13,10 @@ const Component = () => {
   const navigate = useNavigate();
   const params = useParams();
   const rootStore = useStore();
-  const { hotels, reservations, getReservations, book, session,  } = rootStore;
-
-  // console.log('session reserv-s', session.session?.reservations)
+  const { hotels, book } = rootStore;
 
   const hotel = hotels.filter((hotel) => hotel.hotelId === params.id);
-  const {
-    hotelId,
-    hotelName,
-    cost,
-    address,
-    reviews,
-    stars,
-    description,
-    photos,
-  } = hotel[0];
+  const { hotelId } = hotel[0];
   const [reservState, setReservState] = useState<ReservationModelType>({
     reservId: "0",
     hotelId: hotelId,
@@ -40,7 +29,7 @@ const Component = () => {
     status: Status.Idle,
     bookDate: new Date(),
   });
-///  ДНИ НЕПРАВИЛЬНО СЧИТАЮТСЯ!!!
+
   const reservationItems: DescriptionsProps["items"] = [
     {
       key: "1",
@@ -58,11 +47,6 @@ const Component = () => {
       children: reservState.hotelId,
     },
     {
-      key: "4",
-      label: "Бронь на имя",
-      children: reservState.userId,
-    },
-    {
       key: "5",
       label: "Количество гостей",
       children: reservState.guestsCount,
@@ -78,10 +62,21 @@ const Component = () => {
       children: `${reservState.totalCost} рублей`,
     },
   ];
+  const [messageApi, contextHolder] = message.useMessage();
 
   const bookHotel = () => {
-    book(reservState);
-    navigate('/account');
+    const bookResult = book(reservState);
+    const status = bookResult === "success" ? "success" : "error";
+    const message: string = {
+      success: "Бронирование подтверждено",
+      error: "Бронирование отклонено",
+    }[status];
+    messageApi
+      .open({
+        type: status,
+        content: message,
+      })
+      .then(() => (status === "success" ? navigate("/account") : navigate(0)));
   };
   return (
     <>
@@ -97,16 +92,18 @@ const Component = () => {
           />
         </Row>
       )}
-
       <Row align="middle" justify="center">
-        <Button
-          disabled={reservState.status !== "pending"}
-          size="large"
-          onClick={bookHotel}
-          style={{ color: "#111", marginTop: "3em" }}
-        >
-          Забронировать
-        </Button>
+        <>
+          {contextHolder}
+          <Button
+            disabled={reservState.status !== "pending"}
+            size="large"
+            onClick={bookHotel}
+            style={{ color: "#111", marginTop: "3em" }}
+          >
+            Забронировать
+          </Button>
+        </>
       </Row>
     </>
   );
