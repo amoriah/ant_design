@@ -1,7 +1,7 @@
 import { Button, Card, Form, Input, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { useNavigate } from "react-router";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 import * as style from "../style/HotelsStyle";
 
 const { Text } = Typography;

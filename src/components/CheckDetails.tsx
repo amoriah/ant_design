@@ -1,7 +1,7 @@
 import { Button, DatePicker, InputNumber, Row, Tooltip } from "antd";
 import { ReservationModelType, Status } from "../store/reservationStore";
 import { Content } from "antd/es/layout/layout";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { v4 as uuidv4 } from "uuid";

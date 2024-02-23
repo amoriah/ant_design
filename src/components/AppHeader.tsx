@@ -1,7 +1,7 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Header } from "antd/es/layout/layout";
 import * as style from "../style/HotelsStyle";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 import { useNavigate } from "react-router";
 import { Dropdown, Flex } from "antd";
 import type { MenuProps } from "antd";

@@ -1,4 +1,4 @@
-import { useStore } from "../../store/rootStore";
+import { useStore } from "../../store/RootStore";
 import { observer } from "mobx-react-lite";
 import { Card, Slider } from "antd";
 

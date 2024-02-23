@@ -1,5 +1,5 @@
 import { Navigate } from "react-router";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 
 export const AuthProvider = ({ page }: any) => {
   const rootStore = useStore();

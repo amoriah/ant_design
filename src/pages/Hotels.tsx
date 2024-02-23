@@ -1,6 +1,6 @@
 import { Content } from "antd/es/layout/layout";
 import type { SearchProps } from "antd/es/input/Search";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 import { observer } from "mobx-react-lite";
 import Search from "antd/es/input/Search";
 import * as style from "../style/HotelsStyle";

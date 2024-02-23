@@ -2,7 +2,7 @@ import { Col, Row, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { observer } from "mobx-react-lite";
 import components from "../components";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 import { UserModelType } from "../store/usersStore";
 import * as style from "../style/HotelsStyle";
 import { v4 as uuidv4 } from "uuid";

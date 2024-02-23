@@ -1,6 +1,6 @@
 import { Divider, Table, Typography } from "antd";
 import { columns } from "../data/tableData";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 
 interface BookTableType {
   key: string;

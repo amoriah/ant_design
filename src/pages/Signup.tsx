@@ -2,7 +2,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 import { Button, Card, Form, Input, Typography } from "antd";
 import * as style from "../style/HotelsStyle";
 

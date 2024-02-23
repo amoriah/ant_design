@@ -1,7 +1,7 @@
 import { Button, Descriptions, message, Row, DescriptionsProps } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import components from "../components";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 import { useState } from "react";
 
 import { ReservationModelType, Status } from "../store/reservationStore";

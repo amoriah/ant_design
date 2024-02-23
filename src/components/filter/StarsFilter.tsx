@@ -1,4 +1,4 @@
-import { useStore } from "../../store/rootStore";
+import { useStore } from "../../store/RootStore";
 import { starsFill } from "../../utils/utils";
 import type { RadioChangeEvent } from "antd";
 import { Card, Radio, Space } from "antd";

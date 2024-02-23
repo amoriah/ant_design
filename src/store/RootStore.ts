@@ -75,7 +75,6 @@ const RootStore = types
         } else return "failed";
       },
       logout() {
-        // localStorage.clear();
         localStorage.setItem("session", JSON.stringify(null));
         localStorage.setItem("isAuthentication", JSON.stringify(false));
       },

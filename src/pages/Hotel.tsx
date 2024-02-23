@@ -5,7 +5,7 @@ import { AppLayout } from "../components/AppLayout";
 import { starsFill } from "../utils/utils";
 import { carouselStyle, imgStyle } from "../style/HotelsStyle";
 import { useParams } from "react-router";
-import { useStore } from "../store/rootStore";
+import { useStore } from "../store/RootStore";
 import { v4 as uuidv4 } from "uuid";
 
 const { Text, Title } = Typography;
