@@ -51,7 +51,7 @@ export const HistoryTable = observer(() => {
 
   return (
     <>
-      <Divider style={{ marginTop: "30px" }}>История бронирований</Divider>
+      <Divider style={{ marginTop: "30px" }}>Активные бронирования</Divider>
       {data.length ? (
         <>
           <div style={{ marginBottom: 16 }}>
@@ -70,7 +70,7 @@ export const HistoryTable = observer(() => {
         </>
       ) : (
         <Title level={3} style={{ textAlign: "center" }}>
-          История пуста
+          Нет активных бронирований
         </Title>
       )}
     </>
