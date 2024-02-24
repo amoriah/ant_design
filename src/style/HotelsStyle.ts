@@ -1,7 +1,7 @@
 export const layoutStyle = {
   width: "calc(50% - 8px)",
   backgroundColor: "#fff",
-  minWidth: "1200px",
+  minWidth: "950px",
 };
 
 export const headerStyle: React.CSSProperties = {

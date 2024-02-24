@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  /* overflow: hidden;
-  overflow-x: auto; */
-}
-
 .ant-card-body {
   width: 100%;
 }
@@ -22,10 +17,8 @@ body {
   opacity: 0.3;
 }
 
-
-/* aside { */
-  /* min-width: 400px; */
-  /* background: red; */
-/* } */
-/* .ant-layout-sider ant-layout-sider-dark {
-} */
+@media screen and (max-width: 1150px) {
+  .filter-bar {
+    display: none;
+  }
+}
