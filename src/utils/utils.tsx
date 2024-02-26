@@ -8,3 +8,7 @@ export function starsFill(count: number) {
   }
   return arr;
 }
+
+export function isNumeric(str: string) {
+  return /^\d+$/.test(str);
+}

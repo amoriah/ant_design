@@ -1,4 +1,4 @@
-import { Col, Row, Typography } from 'antd';
+import { Col, Row, Typography, message } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import { observer } from 'mobx-react-lite';
 import components from '../components';
@@ -6,6 +6,7 @@ import { useStore } from '../store/RootStore';
 import { UserModelType } from '../store/usersStore';
 import * as style from '../style/HotelsStyle';
 import { v4 as uuidv4 } from 'uuid';
+import { isNumeric } from '../utils/utils';
 
 const { Text, Title } = Typography;
 
@@ -18,6 +19,7 @@ type fieldType = {
 const Component = observer(() => {
   const rootStore = useStore();
   const { session, setAccountValue } = rootStore;
+  const [messageError, context] = message.useMessage();
 
   const accountFieldsItems: fieldType[] = [
     {
@@ -42,25 +44,39 @@ const Component = observer(() => {
     },
   ];
 
-  function isNumeric(str: string) {
-    return /^\d+$/.test(str);
-  }
+  const notificationHandle = (key: string) => {
+    const error = {
+      age: 'Введите реальный возраст',
+      phone: 'Введите правильный номер',
+      name: 'В имени не может быть цифр',
+    }[key];
+    messageError.open({
+      type: 'error',
+      content: error,
+    });
+  };
 
   const changeHandle = (value: string, key: keyof UserModelType) => {
     if (key === 'phone') {
       if (!isNumeric(value) || value.length !== 11) {
-        alert('Введите правильный номер');
+        notificationHandle('phone');
         return;
       }
     }
     if (key === 'age') {
       const num = Number(value);
       if (!isNumeric(value) || num > 130) {
-        alert('Введите реальный возраст');
+        notificationHandle('age');
         return;
       }
-      setAccountValue(value, session.session!.userId, key);
     }
+    if (key === 'name') {
+      if (isNumeric(value)) {
+        notificationHandle('name');
+        return;
+      }
+    }
+    setAccountValue(value, session.session!.userId, key);
   };
 
   const fieldsItems = accountFieldsItems.map(item => {
@@ -72,7 +88,6 @@ const Component = observer(() => {
             onChange: (value: string) => {
               changeHandle(value, item.key);
             },
-            onStart: () => console.log(),
           }}
           style={style.accountTextStyle}
         >
@@ -84,6 +99,7 @@ const Component = observer(() => {
 
   return (
     <Content style={{ margin: '0 100px' }}>
+      {context}
       <Col>{fieldsItems}</Col>
       <components.HistoryTable />
     </Content>
