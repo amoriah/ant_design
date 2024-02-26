@@ -6,7 +6,8 @@ import localStore from './localStorage';
 import { ReservationModel, ReservationModelType } from './reservationStore';
 import { SessionModel } from './sessionStore';
 import { UserModel, UserModelType } from './usersStore';
-import { getRandomStatus } from '../utils/randomStatus';
+import { getRandomStatus } from '../utils/utils';
+
 
 const RootStore = types
   .model('RootStore', {
