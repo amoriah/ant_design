@@ -26,6 +26,7 @@ export const HotelCard: React.FC<HotelModelType> = ({
   return (
     <Card
       hoverable
+      className='hotel-card'
       style={hotelCardStyle}
       key={hotelId}
       onClick={openHotelPage}

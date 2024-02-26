@@ -21,4 +21,19 @@
   .filter-bar {
     display: none;
   }
+  .hotel-card {
+    width: 95%;
+  }
+  .hotels-search {
+    width: 95%;
+  }
+}
+
+@media screen and (min-width: 1150px) {
+  .hotel-card {
+    width: 70%;
+  }
+  .hotels-search {
+    width: 70%;
+  }
 }
